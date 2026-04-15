@@ -1,19 +1,13 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  name: auction-app
+  name: auction-service
 spec:
-  replicas: 2
+  type: NodePort
   selector:
-    matchLabels:
-      app: auction
-  template:
-    metadata:
-      labels:
-        app: auction
-    spec:
-      containers:
-        - name: auction
-          image: sar0234/auction-app
-          ports:
-            - containerPort: 8080
+    app: auction
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+      nodePort: 30010
